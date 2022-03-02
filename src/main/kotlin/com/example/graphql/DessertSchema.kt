@@ -38,8 +38,6 @@ fun SchemaBuilder.dessertSchema(dessertService: DessertService) {
         }
     }
 
-    // TODO: update Dessert and delete Desert resolver
-
     mutation("updateDessert") {
         resolver { dessertId: String, dessertInput: DessertInput ->
             try {
