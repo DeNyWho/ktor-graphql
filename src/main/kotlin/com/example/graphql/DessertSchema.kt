@@ -1,8 +1,10 @@
 package com.example.graphql
 
+import com.apurebase.kgraphql.Context
 import com.apurebase.kgraphql.schema.dsl.SchemaBuilder
 import com.example.models.Dessert
 import com.example.models.DessertInput
+import com.example.models.User
 import com.example.repository.DessertRepository
 import com.example.services.DessertService
 
@@ -26,11 +28,21 @@ fun SchemaBuilder.dessertSchema(dessertService: DessertService) {
         }
     }
 
+    query("desserts") {
+        resolver { page: Int?, size: Int? ->
+            try {
+                dessertService.getDessertsPage(page ?: 0, size ?: 10)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
     mutation("createDessert") {
         description = "Create a new dessert"
-        resolver { dessertInput: DessertInput ->
+        resolver { ctx: Context, dessertInput: DessertInput ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 dessertService.createDessert(dessertInput, userId)
             } catch (e: Exception) {
                 null
@@ -39,9 +51,9 @@ fun SchemaBuilder.dessertSchema(dessertService: DessertService) {
     }
 
     mutation("updateDessert") {
-        resolver { dessertId: String, dessertInput: DessertInput ->
+        resolver { ctx: Context, dessertId: String, dessertInput: DessertInput ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 dessertService.updateDessert(userId, dessertId, dessertInput)
             } catch (e: Exception) {
                 null
@@ -50,9 +62,9 @@ fun SchemaBuilder.dessertSchema(dessertService: DessertService) {
     }
 
     mutation("deleteDessert") {
-        resolver { dessertId: String ->
+        resolver { ctx: Context, dessertId: String ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 dessertService.deleteDessert(userId, dessertId)
             } catch (e: Exception) {
                 null

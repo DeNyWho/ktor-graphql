@@ -2,6 +2,7 @@ package com.example.services
 
 import com.example.models.Dessert
 import com.example.models.DessertInput
+import com.example.models.DessertsPage
 import com.example.repository.DessertRepository
 import com.example.repository.ReviewRepository
 import com.mongodb.client.MongoClient
@@ -18,6 +19,10 @@ class DessertService: KoinComponent {
         val dessert = repo.getById(id)
         dessert.reviews = reviewRepo.getReviewsByDessertId(id)
         return dessert
+    }
+
+    fun getDessertsPage(page: Int, size: Int): DessertsPage {
+        return repo.getDessertsPage(page, size)
     }
 
     fun createDessert(dessertInput: DessertInput, userId: String): Dessert {

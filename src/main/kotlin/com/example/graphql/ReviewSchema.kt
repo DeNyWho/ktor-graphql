@@ -4,6 +4,7 @@ import com.apurebase.kgraphql.Context
 import com.apurebase.kgraphql.schema.dsl.SchemaBuilder
 import com.example.models.Review
 import com.example.models.ReviewInput
+import com.example.models.User
 import com.example.services.ReviewService
 
 fun SchemaBuilder.reviewSchema(reviewService: ReviewService) {
@@ -23,7 +24,7 @@ fun SchemaBuilder.reviewSchema(reviewService: ReviewService) {
         description = "Create a new review"
         resolver { dessertId: String, reviewInput: ReviewInput, ctx: Context ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 reviewService.createReview(userId, dessertId, reviewInput)
             } catch (e: Exception) {
                 null
@@ -35,7 +36,7 @@ fun SchemaBuilder.reviewSchema(reviewService: ReviewService) {
         description = "Update an existing review"
         resolver { reviewId: String, reviewInput: ReviewInput, ctx: Context ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 reviewService.updateReview(userId, reviewId, reviewInput)
             } catch (e: Exception) {
                 null
@@ -47,7 +48,7 @@ fun SchemaBuilder.reviewSchema(reviewService: ReviewService) {
         description = "Delete a review"
         resolver { reviewId: String, ctx: Context ->
             try {
-                val userId = "abc"
+                val userId = ctx.get<User>()?.id ?: error("Not signed in")
                 reviewService.deleteReview(userId, reviewId)
             } catch (e: Exception) {
                 null
