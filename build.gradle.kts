@@ -9,6 +9,7 @@ val logbackVersion: String by project
 plugins {
     application
     kotlin("jvm") version "1.6.10"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 tasks {
@@ -17,6 +18,20 @@ tasks {
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
+    }
+}
+
+application {
+    mainClassName = "io.ktor.server.netty.EngineMain"
+}
+
+tasks.withType<Jar>{
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to application.mainClassName
+            )
+        )
     }
 }
 
@@ -29,6 +44,18 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+}
+
+kotlin.sourceSets["main"].kotlin.srcDirs("src/main")
+sourceSets["main"].java.srcDirs("src/main/kotlin")
+
+kotlin.sourceSets["test"].kotlin.srcDirs("src/test")
+sourceSets["test"].java.srcDirs("src/test")
+
+sourceSets["main"].resources.srcDirs("src/main")
+
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.INHERIT
 }
 
 dependencies {

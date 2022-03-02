@@ -5,7 +5,6 @@ import com.example.graphql.authSchema
 import com.example.graphql.dessertSchema
 import com.example.graphql.profileSchema
 import com.example.graphql.reviewSchema
-import com.example.models.Dessert
 import com.example.services.AuthService
 import com.example.services.DessertService
 import com.example.services.ProfileService

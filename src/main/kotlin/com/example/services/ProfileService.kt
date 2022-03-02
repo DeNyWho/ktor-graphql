@@ -1,8 +1,6 @@
 package com.example.services
 
-import com.example.models.Dessert
 import com.example.models.Profile
-import com.example.models.UserResponse
 import com.example.repository.DessertRepository
 import com.example.repository.UserRepository
 import com.mongodb.client.MongoClient

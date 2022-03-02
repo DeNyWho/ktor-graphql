@@ -10,7 +10,6 @@ import com.example.models.UserResponse
 import com.example.repository.UserRepository
 import com.mongodb.client.MongoClient
 import io.ktor.application.*
-import io.ktor.request.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.nio.charset.StandardCharsets

@@ -5,7 +5,6 @@ import com.apurebase.kgraphql.schema.dsl.SchemaBuilder
 import com.example.models.Dessert
 import com.example.models.DessertInput
 import com.example.models.User
-import com.example.repository.DessertRepository
 import com.example.services.DessertService
 
 fun SchemaBuilder.dessertSchema(dessertService: DessertService) {
