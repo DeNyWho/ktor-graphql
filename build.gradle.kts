@@ -44,6 +44,7 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+    maven { url = uri("https://repo1.maven.org/maven2/") }
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/main")
