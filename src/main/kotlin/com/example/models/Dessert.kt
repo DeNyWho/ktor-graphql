@@ -6,6 +6,7 @@ data class Dessert(
     var name: String,
     var description: String,
     var imageUrl: String,
+    var reviews: List<Review> = emptyList()
 ): Model
 
 data class DessertInput(

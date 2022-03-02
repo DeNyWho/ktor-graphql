@@ -9,7 +9,7 @@ import org.koin.core.context.startKoin
 import org.koin.ktor.ext.modules
 
 fun main() {
-    embeddedServer(Netty, port = 8060, host = "0.0.0.0") {
+    embeddedServer(Netty, port = 8063, host = "0.0.0.0") {
         configureRouting()
         startKoin {
             modules(mainModule)
